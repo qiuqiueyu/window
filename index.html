@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>秋秋俄语 · 导航</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <!-- 谷歌字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --light-blue: #eaf6ff;
+      --card-bg: rgba(255, 255, 255, .9);
+      --shadow: 0 8px 32px rgba(0, 0, 0, .1);
+      --accent: #4e8cff;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      background: var(--light-blue);
+      font-family: '微软雅黑', 'ZCOOL KuaiLe', sans-serif;
+      overflow-x: hidden;
+      padding: 20px 0;
+    }
+    .container {
+      width: 92vw;
+      max-width: 420px;
+      min-height: auto;
+      margin: 0 auto;
+      padding: 20px 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* 地球图标样式 - 参考 index.html */
+    .welcome-earth-bg {
+      width: 180px;
+      height: 180px;
+      margin: 10px auto 15px auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .earth-emoji {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-60%, -58%);
+      font-size: 180px;
+      opacity: 0.18;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      width: 100%;
+      height: 100%;
+      line-height: 1;
+      text-align: center;
+    }
+    .welcome-text {
+      position: absolute;
+      left: 0; top: 0; width: 100%; height: 100%;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      text-align: center;
+      transform: translateX(15px);
+    }
+    .welcome-text .line1 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      color: #222;
+      text-shadow: 0 2px 8px #fff;
+    }
+    .welcome-text .line2 {
+      font-size: 34px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      letter-spacing: 2px;
+      color: #222;
+      text-shadow: 0 2px 8px #fff;
+    }
+    .welcome-text .line3 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+      text-shadow: 0 2px 8px #fff;
+    }
+    h1 {
+      display: none;
+    }
+    h2 {
+      display: none;
+    }
+    .btn {
+      width: 100%;
+      padding: 12px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: .25s;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(78, 140, 255, 0.3);
+      margin-bottom: 12px;
+      border: 2.5px solid #222;
+    }
+    .btn-primary:hover {
+      background: #2566c6;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(78, 140, 255, 0.4);
+    }
+    .btn-primary:active {
+      background: #1a4d99;
+      transform: translateY(0);
+    }
+    /* 留言区 */
+    .comment-box {
+      width: 100%;
+      margin-top: 15px;
+      text-align: left;
+    }
+    .comment-box h3 {
+      color: #222;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .comment-box textarea {
+      width: 100%;
+      min-height: 60px;
+      resize: vertical;
+      padding: 10px;
+      border: 2.5px solid #222;
+      border-radius: 12px;
+      background: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    .comment-box .btn-send {
+      margin-top: 10px;
+      background: var(--accent);
+      color: #fff;
+      width: auto;
+      padding: 10px 24px;
+      border: 2.5px solid #222;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .comment-box .btn-send:hover {
+      background: #2566c6;
+    }
+    .comment-box .btn-send:active {
+      background: #1a4d99;
+    }
+    .comment-list {
+      margin-top: 12px;
+    }
+    .comment-item {
+      background: #f8f9fb;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+      font-size: 15px;
+      line-height: 1.6;
+      position: relative;
+    }
+    .comment-item .uname {
+      color: var(--accent);
+      font-weight: bold;
+      margin-right: 8px;
+    }
+    .comment-item .time {
+      font-size: 12px;
+      color: #666;
+      float: right;
+    }
+    .comment-item .btn-delete {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      border: 1.5px solid #222;
+    }
+    .comment-item .btn-delete:hover {
+      opacity: 1;
+      background: #ff3838;
+    }
+    .admin-panel {
+      margin-top: 15px;
+      padding: 12px;
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      border-radius: 12px;
+      display: none;
+    }
+    .admin-panel.active {
+      display: block;
+    }
+    .admin-panel input {
+      width: 100%;
+      padding: 8px;
+      border: 2px solid #222;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .admin-panel .btn-admin {
+      background: #ffc107;
+      color: #222;
+      border: 2px solid #222;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    .admin-panel .btn-admin:hover {
+      background: #ffb300;
+    }
+    .admin-status {
+      display: inline-block;
+      padding: 4px 8px;
+      background: #28a745;
+      color: white;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-left: 10px;
+      border: 1.5px solid #222;
+    }
+    .admin-toggle {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .admin-toggle-btn {
+      background: transparent;
+      border: none;
+      color: #666;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 4px;
+    }
+    .admin-toggle-btn:hover {
+      color: #333;
+    }
+    /* 广告位 */
+    .ad-slot {
+      width: 100%;
+      margin-top: 15px;
+      text-align: center;
+    }
+    .ad-container {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 12px;
+      padding: 12px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid #222;
+      position: relative;
+      overflow: hidden;
+    }
+    .ad-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    .ad-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto 8px;
+    }
+    .ad-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .ad-desc {
+      font-size: 12px;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+    .ad-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+    .ad-loading {
+      font-size: 12px;
+      color: #999;
+      padding: 8px;
+    }
+    .ad-hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 地球图标 - 参考 index.html 格式 -->
+    <div class="welcome-earth-bg">
+      <span class="earth-emoji">🌍</span>
+      <div class="welcome-text">
+        <div class="line1">欢迎来到</div>
+        <div class="line2">秋秋俄语</div>
+        <div class="line3">世界</div>
+      </div>
+    </div>
+
+    <!-- 两个外链按钮 -->
+    <button class="btn btn-primary" onclick="openLink(1)">路线1 传统版</button>
+    <button class="btn btn-primary" onclick="openLink(2)">路线2 AI版</button>
+
+    <!-- 留言区 -->
+    <div class="comment-box">
+      <h3>留言建议区<span id="adminStatus" class="admin-status" style="display:none;">管理员模式</span></h3>
+      <textarea id="txt" placeholder="写下你的建议或感受…"></textarea>
+      <button class="btn btn-send" onclick="submitComment()">发送</button>
+
+      <!-- 管理员面板 -->
+      <div class="admin-toggle">
+        <button class="admin-toggle-btn" onclick="toggleAdminPanel()">管理员入口</button>
+      </div>
+      <div class="admin-panel" id="adminPanel">
+        <div style="margin-bottom: 8px; font-weight: bold; color: #856404;">🔐 管理员登录</div>
+        <input type="password" id="adminPassword" placeholder="请输入管理员密码" onkeypress="if(event.key==='Enter') loginAdmin()" />
+        <button class="btn-admin" onclick="loginAdmin()">登录</button>
+        <button class="btn-admin" onclick="logoutAdmin()" style="background: #dc3545; color: white;">退出</button>
+      </div>
+
+      <div class="comment-list" id="list"></div>
+    </div>
+
+    <!-- 广告位 -->
+    <div class="ad-slot" id="adSlot">
+      <div class="ad-loading">加载中...</div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- 外链跳转 ---------- */
+    const LINKS = {
+      1: 'https://kgjnwgkijudu.sealoshzh.site/',
+      2: 'https://qiuqiurussian.base44.app/Learn'
+    };
+    function openLink(n) { window.open(LINKS[n], '_blank'); }
+
+    /* ---------- 留言板 ---------- */
+    const STORAGE_KEY = 'qqRussianComments';
+    const ADMIN_KEY = 'qqRussianAdmin';
+    const ADMIN_PASSWORD = 'CQYcqy888'; // 默认管理员密码，建议修改
+    let seq = +(localStorage.getItem('userSeq') || 0);
+    let isAdmin = localStorage.getItem(ADMIN_KEY) === 'true';
+    
+    function genUser() {
+      seq++;
+      localStorage.setItem('userSeq', seq);
+      return 'user' + String(seq).padStart(3, '0');
+    }
+    const currentUser = genUser();
+
+    function loadComments() {
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const box = document.getElementById('list');
+      box.innerHTML = arr
+        .map(
+          (c, index) => `
+          <div class="comment-item" data-index="${index}">
+            <span class="uname">${c.user}</span>
+            <span class="time">${c.time}</span>
+            ${isAdmin ? `<button class="btn-delete" onclick="deleteComment(${index})" title="删除留言">删除</button>` : ''}
+            <div>${c.text}</div>
+          </div>`
+        )
+        .join('');
+      updateAdminStatus();
+    }
+    
+    function submitComment() {
+      const val = document.getElementById('txt').value.trim();
+      if (!val) return alert('内容不能为空');
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      arr.unshift({
+        user: currentUser,
+        time: new Date().toLocaleString('zh-CN'),
+        text: val
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+      document.getElementById('txt').value = '';
+      loadComments();
+    }
+    
+    function deleteComment(index) {
+      if (!isAdmin) {
+        alert('您没有管理员权限');
+        return;
+      }
+      if (!confirm('确定要删除这条留言吗？')) return;
+      
+      const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      arr.splice(index, 1);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+      loadComments();
+    }
+    
+    function toggleAdminPanel() {
+      const panel = document.getElementById('adminPanel');
+      panel.classList.toggle('active');
+    }
+    
+    function loginAdmin() {
+      const password = document.getElementById('adminPassword').value;
+      if (password === ADMIN_PASSWORD) {
+        isAdmin = true;
+        localStorage.setItem(ADMIN_KEY, 'true');
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminPanel').classList.remove('active');
+        loadComments();
+        alert('管理员登录成功！');
+      } else {
+        alert('密码错误！');
+      }
+    }
+    
+    function logoutAdmin() {
+      isAdmin = false;
+      localStorage.removeItem(ADMIN_KEY);
+      document.getElementById('adminPanel').classList.remove('active');
+      loadComments();
+      alert('已退出管理员模式');
+    }
+    
+    function updateAdminStatus() {
+      const statusEl = document.getElementById('adminStatus');
+      if (isAdmin) {
+        statusEl.style.display = 'inline-block';
+      } else {
+        statusEl.style.display = 'none';
+      }
+    }
+    
+    loadComments();
+
+    /* ---------- 广告系统 ---------- */
+    (function() {
+      const AD_CONFIG_URL = './ad-config.json'; // 本地配置文件路径
+      // 或者使用远程URL: const AD_CONFIG_URL = 'https://your-domain.com/ad-config.json';
+      const AD_CACHE_KEY = 'qqRussianAdCache';
+      const AD_CACHE_TIME = 24 * 60 * 60 * 1000; // 缓存24小时
+      
+      async function loadAd() {
+        const adSlot = document.getElementById('adSlot');
+        if (!adSlot) return;
+        
+        try {
+          // 检查缓存
+          const cached = localStorage.getItem(AD_CACHE_KEY);
+          if (cached) {
+            const { data, timestamp } = JSON.parse(cached);
+            const now = Date.now();
+            if (now - timestamp < AD_CACHE_TIME && data) {
+              renderAd(data);
+              // 后台更新（不阻塞显示）
+              fetchAd(true);
+              return;
+            }
+          }
+          
+          // 首次加载或缓存过期
+          await fetchAd(false);
+        } catch (error) {
+          console.error('广告加载失败:', error);
+          adSlot.innerHTML = '<div class="ad-loading">广告位招租</div>';
+        }
+      }
+      
+      async function fetchAd(silent = false) {
+        try {
+          const response = await fetch(AD_CONFIG_URL + '?t=' + Date.now());
+          if (!response.ok) throw new Error('网络错误');
+          
+          const config = await response.json();
+          
+          // 验证配置格式
+          if (!config || !config.enabled) {
+            if (!silent) {
+              document.getElementById('adSlot').innerHTML = '<div class="ad-loading">广告位招租</div>';
+            }
+            return;
+          }
+          
+          // 保存到缓存
+          localStorage.setItem(AD_CACHE_KEY, JSON.stringify({
+            data: config,
+            timestamp: Date.now()
+          }));
+          
+          if (!silent) {
+            renderAd(config);
+          }
+        } catch (error) {
+          if (!silent) {
+            console.error('广告获取失败:', error);
+          }
+        }
+      }
+      
+      function renderAd(config) {
+        const adSlot = document.getElementById('adSlot');
+        if (!adSlot || !config) return;
+        
+        let html = '';
+        
+        if (config.type === 'image') {
+          // 图片广告
+          html = `
+            <div class="ad-container" onclick="window.open('${config.link || '#'}', '_blank')">
+              ${config.image ? `<img src="${config.image}" alt="${config.title || ''}" />` : ''}
+              ${config.title ? `<div class="ad-title">${config.title}</div>` : ''}
+              ${config.desc ? `<div class="ad-desc">${config.desc}</div>` : ''}
+            </div>
+          `;
+        } else if (config.type === 'text') {
+          // 文本广告
+          html = `
+            <a href="${config.link || '#'}" target="_blank" class="ad-link">
+              <div class="ad-container">
+                ${config.title ? `<div class="ad-title">${config.title}</div>` : ''}
+                ${config.desc ? `<div class="ad-desc">${config.desc}</div>` : ''}
+              </div>
+            </a>
+          `;
+        } else if (config.type === 'html') {
+          // HTML广告
+          html = config.html || '';
+        } else {
+          // 默认文本广告
+          html = `
+            <div class="ad-container" onclick="window.open('${config.link || '#'}', '_blank')">
+              <div class="ad-title">${config.title || '广告位招租'}</div>
+              ${config.desc ? `<div class="ad-desc">${config.desc}</div>` : ''}
+            </div>
+          `;
+        }
+        
+        adSlot.innerHTML = html;
+      }
+      
+      // 页面加载时加载广告
+      loadAd();
+      
+      // 定期检查更新（每小时检查一次）
+      setInterval(() => {
+        fetchAd(true);
+      }, 60 * 60 * 1000);
+    })();
+
+    /* ---------- 版本更新机制 ---------- */
+    (function () {
+      const key = 'qqRussianVer';
+      const ver = document.querySelector('meta[name="version"]')?.getAttribute('content') || 'v=2025111001';
+      if (localStorage.getItem(key) !== ver) {
+        localStorage.setItem(key, ver);
+        // 清除广告缓存
+        localStorage.removeItem('qqRussianAdCache');
+        if ('caches' in window) {
+          caches.keys().then(names => names.forEach(n => caches.delete(n)));
+        }
+        location.reload(true);
+      }
+    })();
+  </script>
+</body>
+</html>
