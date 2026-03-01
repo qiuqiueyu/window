@@ -2,14 +2,27 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>秋秋俄语 · 导航</title>
+  <title>秋秋俄语世界 - OpenCLAW定制词库</title>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <!-- 谷歌字体 -->
-  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+  <!-- 图标库+谷歌字体 -->
+  <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --light-blue: #eaf6ff;
-      --accent: #4e8cff;
+      --primary: #4e8cff;
+      --primary-dark: #2566c6;
+      --primary-light: #eaf6ff;
+      --secondary: #ff7851;
+      --secondary-dark: #ff5733;
+      --secondary-light: #fff5f2;
+      --dark: #222;
+      --gray: #666;
+      --light-gray: #f5f7fa;
+      --white: #fff;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-hover: 0 8px 20px rgba(78,140,255,0.2);
+      --radius: 12px;
+      --transition: all 0.3s ease;
     }
     * {
       margin: 0;
@@ -18,124 +31,418 @@
     }
     body {
       min-height: 100vh;
-      background: var(--light-blue);
-      font-family: '微软雅黑', 'ZCOOL KuaiLe', sans-serif;
-      overflow-x: hidden;
+      background: var(--primary-light);
+      font-family: 'Noto Sans SC', '微软雅黑', sans-serif;
+      color: var(--dark);
       padding: 20px 0;
+      overflow-x: hidden;
     }
+    /* 主容器-流式布局 */
     .container {
       width: 92vw;
-      max-width: 420px;
+      max-width: 750px;
       margin: 0 auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
-    /* 地球图标样式 */
-    .welcome-earth-bg {
-      width: 180px;
-      height: 180px;
-      margin: 10px auto 15px auto;
+    /* 头部方块-视觉焦点 */
+    .header-card {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      border-radius: var(--radius);
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--white);
+      box-shadow: var(--shadow);
       position: relative;
+      overflow: hidden;
+    }
+    .header-card::before {
+      content: '🌍';
+      font-size: 120px;
+      opacity: 0.15;
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      z-index: 1;
+    }
+    .header-text {
+      position: relative;
+      z-index: 2;
+    }
+    .header-sub {
+      font-size: 16px;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+    .header-main {
+      font-family: 'ZCOOL KuaiLe', cursive;
+      font-size: 40px;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+    .header-tag {
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+    .header-tag span {
+      color: #ffd700;
+      font-weight: 700;
+    }
+    /* 通用方块卡片 */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      transition: var(--transition);
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    /* 卡片标题 */
+    .card-title {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary-light);
     }
-    .earth-emoji {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-60%, -58%);
-      font-size: 180px;
-      opacity: 0.18;
-      z-index: 1;
-      pointer-events: none;
-      user-select: none;
-      width: 100%;
-      height: 100%;
-      line-height: 1;
+    .card-title i {
+      font-size: 20px;
+      color: var(--secondary);
+    }
+    /* 特色板块-网格方块布局 */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .feature-item {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 16px 10px;
       text-align: center;
+      transition: var(--transition);
+      cursor: default;
     }
-    .welcome-text {
-      position: absolute;
-      left: 0; top: 0; width: 100%; height: 100%;
-      z-index: 2;
+    .feature-item:hover {
+      background: var(--primary-light);
+      transform: scale(1.03);
+    }
+    .feature-item i {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .feature-item h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .feature-item p {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+    /* 核心入口-大按钮方块 */
+    .entry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .entry-btn {
+      width: 100%;
+      padding: 20px 0;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--white);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      pointer-events: none;
-      text-align: center;
-      transform: translateX(15px);
-    }
-    .welcome-text .line1 {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 4px;
-      color: #222;
-      text-shadow: 0 2px 8px #fff;
-    }
-    .welcome-text .line2 {
-      font-size: 34px;
-      font-weight: bold;
-      margin-bottom: 4px;
-      letter-spacing: 2px;
-      color: #222;
-      text-shadow: 0 2px 8px #fff;
-    }
-    .welcome-text .line3 {
-      font-size: 18px;
-      font-weight: bold;
-      color: #222;
-      text-shadow: 0 2px 8px #fff;
-    }
-    .btn {
-      width: 100%;
-      padding: 12px 0;
-      font-size: 16px;
-      border: none;
-      border-radius: 12px;
+      gap: 8px;
       cursor: pointer;
-      transition: .25s;
-      letter-spacing: 1px;
-      font-weight: bold;
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(78, 140, 255, 0.3);
-      margin-bottom: 12px;
-      border: 2.5px solid #222;
+      transition: var(--transition);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .btn:hover {
-      background: #2566c6;
+    .entry-btn-1 {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+    }
+    .entry-btn-2 {
+      background: linear-gradient(90deg, var(--secondary), var(--secondary-dark));
+    }
+    .entry-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    .entry-btn i {
+      font-size: 24px;
+    }
+    /* 广告板块-彩色方块 */
+    .ad-card {
+      background: linear-gradient(135deg, var(--secondary-light), #ffe8e0);
+      border: 2px solid var(--secondary);
+    }
+    .ad-card .card-title {
+      color: var(--secondary-dark);
+      border-bottom-color: var(--secondary);
+      opacity: 0.8;
+    }
+    .ad-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .ad-text {
+      flex: 1;
+      min-width: 200px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--dark);
+    }
+    .ad-btn {
+      padding: 10px 20px;
+      background: var(--secondary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .ad-btn:hover {
+      background: var(--secondary-dark);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(78, 140, 255, 0.4);
     }
-    .btn:active {
-      background: #1a4d99;
-      transform: translateY(0);
+    /* 联系方式-网格方块 */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    .contact-item {
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      padding: 16px 10px;
+      text-align: center;
+      transition: var(--transition);
+      text-decoration: none;
+      color: var(--dark);
+    }
+    .contact-item:hover {
+      background: var(--primary-light);
+      transform: scale(1.03);
+    }
+    .contact-item i {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .contact-item .contact-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .contact-item .contact-info {
+      font-size: 13px;
+      color: var(--gray);
+    }
+    /* 场景适配方块-快速选择 */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+    }
+    .scene-item {
+      padding: 12px 8px;
+      background: var(--light-gray);
+      border-radius: var(--radius);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--dark);
+      border: 1px solid transparent;
+      transition: var(--transition);
+      cursor: default;
+    }
+    .scene-item:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--white);
+    }
+    /* 响应式适配 */
+    @media (max-width: 480px) {
+      .header-main {
+        font-size: 32px;
+      }
+      .entry-grid {
+        grid-template-columns: 1fr;
+      }
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .header-card::before {
+        font-size: 80px;
+        top: -10px;
+        right: -10px;
+      }
+    }
+    @media (min-width: 600px) {
+      .container {
+        gap: 20px;
+      }
+      .card {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- 地球图标 -->
-    <div class="welcome-earth-bg">
-      <span class="earth-emoji">🌍</span>
-      <div class="welcome-text">
-        <div class="line1">欢迎来到</div>
-        <div class="line2">秋秋俄语</div>
-        <div class="line3">世界</div>
+    <!-- 头部视觉方块-核心卖点 -->
+    <div class="header-card">
+      <div class="header-text">
+        <div class="header-sub">AI智能定制 · 个性化场景适配</div>
+        <div class="header-main">秋秋俄语世界</div>
+        <div class="header-tag">告别千篇一律词库！基于<span>OpenCLAW技术</span>，自动化定制专属俄语词库，适配细分行业小众单词全场景</div>
       </div>
     </div>
 
-    <!-- 两个外链按钮 -->
-    <button class="btn" onclick="openLink(1)">路线1 传统版</button>
-    <button class="btn" onclick="openLink(2)">路线2 AI版</button>
+    <!-- 场景选择方块-快速匹配 -->
+    <div class="card">
+      <div class="card-title">
+        <i class="fas fa-map-marker-alt"></i>适配场景
+      </div>
+      <div class="scene-grid">
+        <div class="scene-item">大学俄语</div>
+        <div class="scene-item">考研俄语</div>
+        <div class="scene-item">商务俄语</div>
+        <div class="scene-item">旅游俄语</div>
+        <div class="scene-item">高考俄语</div>
+        <div class="scene-item">留学俄语</div>
+      </div>
+    </div>
+
+    <!-- 核心特色方块-网格布局 -->
+    <div class="card">
+      <div class="card-title">
+        <i class="fas fa-star"></i>核心优势
+      </div>
+      <div class="feature-grid">
+        <div class="feature-item">
+          <i class="fas fa-robot"></i>
+          <h4>OpenCLAW定制</h4>
+          <p>专属词库，拒绝通用模板</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-user-pen"></i>
+          <h4>向善AI</h4>
+          <p>保持自我习惯，你来驾驭AI，拒绝成为工具的奴隶</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-shield-halved"></i>
+          <h4>隐私保护</h4>
+          <p>数据保护，安全无忧</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-memory"></i>
+          <h4>艾宾浩斯记忆</h4>
+          <p>科学间隔，高效背诵</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-volume-up"></i>
+          <h4>双源离线发音</h4>
+          <p>Google+Yandex，无网也能听</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-wifi"></i>
+          <h4>全离线学习</h4>
+          <p>数据本地存，无网不中断</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-chart-pie"></i>
+          <h4>学习数据可视化</h4>
+          <p>进度实时看，成就看得见</p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-download"></i>
+          <h4>数据导出</h4>
+          <p>CSV/JSON，备份迁移无忧</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心入口-双按钮方块（保留原链接） -->
+    <div class="card">
+      <div class="card-title">
+        <i class="fas fa-door-open"></i>进入学习系统
+      </div>
+      <div class="entry-grid">
+        <button class="entry-btn entry-btn-1" onclick="openLink(1)">
+          <i class="fas fa-book"></i>
+          路线1 传统版
+        </button>
+        <button class="entry-btn entry-btn-2" onclick="openLink(2)">
+          <i class="fas fa-brain"></i>
+          路线2 AI版
+        </button>
+      </div>
+    </div>
+
+    <!-- 广告方块-留子专属网络专线 -->
+    <div class="card ad-card">
+      <div class="card-title">
+        <i class="fas fa-network-wired"></i>秋秋专线 · 留子专属
+      </div>
+      <div class="ad-content">
+        <div class="ad-text">
+          俄罗斯网络越来越差？专为留俄学习，工作外派，商务差旅定制网络专线，稳定访问国内/学习资源，告别应用受限，卡顿延迟，在俄罗斯体验家乡的网络更顺畅！
+        </div>
+        <a href="https://qiuqiueyu.github.io/vpnnet/" target="_blank">
+          <button class="ad-btn">
+            <i class="fas fa-link"></i> 进入专线官网
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <!-- 联系方式-网格方块（小红书+TG预留） -->
+    <div class="card">
+      <div class="card-title">
+        <i class="fas fa-contact-card"></i>联系我们
+      </div>
+      <div class="contact-grid">
+        <a href="https://www.xiaohongshu.com/user/profile/373456606" target="_blank" class="contact-item">
+          <i class="fas fa-redhat"></i>
+          <div class="contact-name">小红书</div>
+          <div class="contact-info">373456606</div>
+        </a>
+        <div class="contact-item" id="tg-contact">
+          <i class="fab fa-telegram"></i>
+          <div class="contact-name">Telegram</div>
+          <div class="contact-info">qiuqiueyu</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    /* ---------- 外链跳转 ---------- */
+    // 核心入口链接跳转-保留原地址
     const LINKS = {
       1: 'https://kgjnwgkijudu.sealoshzh.site/',
       2: 'https://qiuqiurussian.base44.app/Learn'
@@ -143,6 +450,10 @@
     function openLink(n) {
       window.open(LINKS[n], '_blank');
     }
+
+    // Telegram接口预留-后续直接修改以下代码即可
+    // document.getElementById('tg-contact').href = 'tg://resolve?domain=你的TG账号';
+    // document.querySelector('#tg-contact .contact-info').innerText = '你的TG账号/群号';
   </script>
 </body>
 </html>
