@@ -1,166 +1,264 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>秋秋俄语 - 全场景俄语学习平台</title>
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-}
-body {
-  background: #f7f8fa;
-  color: #333;
-  padding: 40px 20px;
-}
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-/* 品牌标题 */
-.brand-title {
-  text-align: center;
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  color: #222;
-}
-.brand-subtitle {
-  text-align: center;
-  font-size: 16px;
-  color: #666;
-  margin-bottom: 40px;
-}
-/* 品牌优势 */
-.advantage {
-  background: #fff;
-  border-radius: 16px;
-  padding: 30px;
-  margin-bottom: 50px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-.advantage h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  color: #222;
-  text-align: center;
-}
-.advantage ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
-}
-.advantage li {
-  width: 280px;
-  padding: 16px;
-  background: #f2f7ff;
-  border-radius: 12px;
-  font-size: 15px;
-  line-height: 1.6;
-}
-.advantage li strong {
-  color: #2e6fff;
-}
-/* 3个APP卡片 */
-.app-card-box {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.app-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 32px 24px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: 0.3s;
-  text-decoration: none;
-  color: inherit;
-}
-.app-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-}
-.app-card h3 {
-  font-size: 18px;
-  margin-bottom: 12px;
-  color: #222;
-}
-.app-card p {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 20px;
-  min-height: 40px;
-}
-.app-card .btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 8px;
-  background: #2e6fff;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-}
-/* 响应式 */
-@media (max-width: 768px) {
-  .app-card-box {
-    grid-template-columns: 1fr;
-  }
-  .advantage ul {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>秋秋俄语 - AI驱动全场景学习平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+        }
+
+        /* 动态渐变背景 —— 超绚丽流动效果 */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6441A5, #2a0845, #4A00E0, #8E2DE2, #1A2980, #26D0CE);
+            background-size: 500% 500%;
+            animation: bgFlow 18s ease infinite;
+            padding: 60px 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes bgFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 光晕装饰 */
+        .glow {
+            position: fixed;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(134,65,246,0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+        }
+        .glow1 { top: -200px; left: -200px; }
+        .glow2 { bottom: -300px; right: -200px; }
+
+        /* 容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 主标题 —— 超炫发光 */
+        .hero {
+            text-align: center;
+            margin-bottom: 70px;
+            color: #fff;
+        }
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #fff, #FFD700, #E100FF, #7F00FF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: titleGlow 3s infinite alternate;
+            margin-bottom: 16px;
+        }
+        @keyframes titleGlow {
+            from { background-position: 0% center; }
+            to { background-position: 100% center; }
+        }
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* 核心优势卡片组 —— 突出 AI + 场景化 + 向善 */
+        .advantages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 80px;
+        }
+        .adv-card {
+            width: 340px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+            padding: 36px 28px;
+            color: #fff;
+            transition: all 0.4s ease;
+        }
+        .adv-card:hover {
+            transform: translateY(-12px);
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+        .adv-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: #FFD700;
+        }
+        .adv-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            opacity: 0.92;
+        }
+
+        /* 三大产品入口 */
+        .apps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        .app-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 28px;
+            padding: 48px 32px;
+            text-align: center;
+            color: #fff;
+            text-decoration: none;
+            transition: 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.7s;
+        }
+        .app-card:hover::before { left: 100%; }
+        .app-card:hover {
+            transform: translateY(-16px) scale(1.03);
+            box-shadow: 0 24px 70px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.4);
+        }
+        .app-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 28px;
+            border-radius: 24px;
+            background: linear-gradient(45deg, #7F00FF, #E100FF);
+            display: grid;
+            place-items: center;
+            font-size: 42px;
+        }
+        .app-card:nth-child(2) .app-icon { background: linear-gradient(45deg, #FF512F, #F09819); }
+        .app-card:nth-child(3) .app-icon { background: linear-gradient(45deg, #007ADF, #00ECBC); }
+        .app-card h2 {
+            font-size: 26px;
+            margin-bottom: 16px;
+        }
+        .app-card p {
+            font-size: 15px;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+        .app-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #7F00FF, #E100FF);
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .app-card:nth-child(2) .app-btn { background: linear-gradient(90deg, #FF512F, #F09819); }
+        .app-card:nth-child(3) .app-btn { background: linear-gradient(90deg, #007ADF, #00ECBC); }
+        .app-btn:hover { transform: scale(1.08); }
+
+        /* 底部标语 */
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+            margin-top: 40px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width:900px) {
+            .apps { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 36px; }
+        }
+    </style>
 </head>
 <body>
-<div class="container">
 
-  <div class="brand-title">秋秋俄语</div>
-  <div class="brand-subtitle">全场景俄语学习解决方案</div>
+    <!-- 背景光晕 -->
+    <div class="glow glow1"></div>
+    <div class="glow glow2"></div>
 
-  <!-- 品牌优势 -->
-  <div class="advantage">
-    <h2>品牌优势</h2>
-    <ul>
-      <li><strong>场景化学习</strong>：贴近真实使用环境，告别死记硬背</li>
-      <li><strong>体系化课程</strong>：从零基础到进阶，循序渐进更高效</li>
-      <li><strong>轻量化使用</strong>：打开即用，多端同步，随时学习</li>
-      <li><strong>三大版本覆盖</strong>：剧场版 / 教科书 / 传统版，满足不同学习习惯</li>
-      <li><strong>专注俄语</strong>：深耕俄语教学，内容更专业、更地道</li>
-      <li><strong>免费易用</strong>：无复杂门槛，新手也能快速上手</li>
-    </ul>
-  </div>
+    <div class="container">
+        <!-- 头部主视觉 -->
+        <div class="hero">
+            <h1>秋秋俄语 · 全场景AI学习平台</h1>
+            <p>用向善AI提升人类语言能力，让每一个人都能轻松掌握俄语，拥抱更广阔的世界</p>
+        </div>
 
-  <!-- 3个APP入口卡片 -->
-  <div class="app-card-box">
-    <!-- 1 剧场版 -->
-    <a href="https://qiu-russian-flow.base44.app/" target="_blank" class="app-card">
-      <h3>秋秋俄语 · 剧场版</h3>
-      <p>场景化沉浸式学习，剧情化单词与表达记忆</p>
-      <div class="btn">进入使用</div>
-    </a>
+        <!-- 核心优势 → 突出 AI + 场景化 + 向善 -->
+        <div class="advantages">
+            <div class="adv-card">
+                <h3>🤖 前沿AI驱动</h3>
+                <p>基于最新大模型智能生成场景化词库、对话、习题，实现个性化学习，告别传统死记硬背。</p>
+            </div>
+            <div class="adv-card">
+                <h3>🌍 全场景覆盖</h3>
+                <p>工作、生活、考试、社交全覆盖，场景化学习让知识即用即会，真正做到学以致用。</p>
+            </div>
+            <div class="adv-card">
+                <h3>❤️ 向善AI</h3>
+                <p>以科技向善为初心，用AI降低学习门槛，提升人类语言能力，创造平等高效的学习未来。</p>
+            </div>
+        </div>
 
-    <!-- 2 教科书 -->
-    <a href="https://qiuqiurussian.base44.app/Learn" target="_blank" class="app-card">
-      <h3>秋秋俄语 · 教科书</h3>
-      <p>系统课程学习，知识点清晰，适合课堂与备考</p>
-      <div class="btn">进入学习</div>
-    </a>
+        <!-- 三大APP入口 -->
+        <div class="apps">
+            <!-- 剧场版 -->
+            <a href="https://qiu-russian-flow.base44.app/" target="_blank" class="app-card">
+                <div class="app-icon">🎬</div>
+                <h2>秋秋俄语 · 剧场版</h2>
+                <p>AI场景化沉浸式学习，剧情化单词记忆，轻松高效掌握地道俄语</p>
+                <div class="app-btn">立即进入</div>
+            </a>
 
-    <!-- 3 传统版 -->
-    <a href="https://kgjnwgkijudu.sealoshzh.site/" target="_blank" class="app-card">
-      <h3>秋秋俄语 · 传统版</h3>
-      <p>经典学习模式，简洁稳定，高效背单词</p>
-      <div class="btn">进入学习</div>
-    </a>
-  </div>
+            <!-- 教科书 -->
+            <a href="https://qiuqiurussian.base44.app/Learn" target="_blank" class="app-card">
+                <div class="app-icon">📚</div>
+                <h2>秋秋俄语 · 教科书</h2>
+                <p>系统化课程学习，AI智能辅导，考试备考一步到位</p>
+                <div class="app-btn">开始学习</div>
+            </a>
 
-</div>
+            <!-- 传统版 -->
+            <a href="https://kgjnwgkijudu.sealoshzh.site/" target="_blank" class="app-card">
+                <div class="app-icon">📝</div>
+                <h2>秋秋俄语 · 传统版</h2>
+                <p>经典稳定学习模式，简洁高效，快速夯实俄语基础</p>
+                <div class="app-btn">进入使用</div>
+            </a>
+        </div>
+
+        <!-- 底部标语 -->
+        <div class="footer">
+            向善AI · 赋能教育 · 提升人类 ✨
+        </div>
+    </div>
+
 </body>
 </html>
